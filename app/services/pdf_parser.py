@@ -18,7 +18,4 @@ def parse_pdf(data: bytes) -> str:
     if not text:
         raise CVInputError("No text found in the PDF. Please paste your CV text instead.")
 
-
-    # TODO: Check characters limit, reject pdf if needed.
-
     return text

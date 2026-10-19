@@ -13,10 +13,10 @@ def generate_structured_messages(messages: list[dict], schema):
 
     try: 
         response = client.chat.completions.parse(
-                    model=settings.openai_model,
-                    messages=messages,
-                    response_format=schema,
-                )
+            model=settings.openai_model,
+            messages=messages,
+            response_format=schema,
+        )
     except Exception as e:
         raise LLMError(f"OpenAI request failed: {e}")
 
