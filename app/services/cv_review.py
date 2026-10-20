@@ -1,6 +1,6 @@
 """Builds the prompt for the CV review and calls the LLM."""
 from app.schemas.cv import CVResponse, CVRequest
-from app.services.llm import generate_structured_messages
+from app.services.llm import generate_review_messages
 
 SYSTEM_PROMPT = """You are an experienced recruiter and career coach.
 You review CVs for a specific target role and give honest, practical feedback.
@@ -51,7 +51,7 @@ def review_cv(request: CVRequest) -> CVResponse:
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": user_message},
     ]
-    review = generate_structured_messages(messages, CVResponse)
+    review = generate_review_messages(messages, CVResponse)
 
     for section in review.sections:
         section.score = round_to_5(section.score)
