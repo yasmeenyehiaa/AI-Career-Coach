@@ -1,4 +1,10 @@
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, '') ?? ''
+
 export async function reviewCv({ role, jobDescription, cvText, file }) {
+  if (!apiBaseUrl && !import.meta.env.DEV) {
+    throw new Error('Backend URL is not configured. Set VITE_API_BASE_URL in the frontend deployment.')
+  }
+
   // A file can only be sent together with other fields as multipart form data
   const formData = new FormData()
   formData.append('role', role)
@@ -10,7 +16,7 @@ export async function reviewCv({ role, jobDescription, cvText, file }) {
 
   let response
   try {
-    response = await fetch('/api/cv/review', { method: 'POST', body: formData })
+    response = await fetch(`${apiBaseUrl}/api/cv/review`, { method: 'POST', body: formData })
   } catch {
     throw new Error('Could not reach the server. Is the backend running?')
   }
