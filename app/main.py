@@ -7,7 +7,7 @@ app = FastAPI(title="AI Career Coach")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://ai-career-coach-blue-nine.vercel.app/"],
+    allow_origins=["http://localhost:5173", "https://ai-career-coach-blue-nine.vercel.app"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
