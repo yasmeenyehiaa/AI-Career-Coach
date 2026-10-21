@@ -35,3 +35,52 @@ export async function reviewCv({ role, jobDescription, cvText, file }) {
 
   return response.json()
 }
+
+// Shared helper: sends the request, turns errors into readable messages, returns the JSON.
+async function request(url, options) {
+  let response
+  try {
+    response = await fetch(url, options)
+  } catch {
+    throw new Error('Could not reach the server. Is the backend running?')
+  }
+
+  if (!response.ok) {
+    let message = 'Something went wrong. Please try again.'
+    try {
+      const body = await response.json()
+      if (typeof body.detail === 'string') {
+        message = body.detail // our own errors send a string in "detail"
+      } else if (Array.isArray(body.detail)) {
+        message = 'Some input is invalid or too long. Please check it and try again.'
+      }
+    } catch {
+      // response was not JSON, keep the default message
+    }
+    throw new Error(message)
+  }
+
+  return response.json()
+}
+
+// Sends JSON (used by the interview endpoints)
+function postJson(url, body) {
+  return request(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  })
+}
+
+
+export function startInterview(setup) {
+  return postJson(`${apiBaseUrl}/api/interview/start`, setup)
+}
+
+export function sendAnswer(setup, messages) {
+  return postJson(`${apiBaseUrl}/api/interview/answer`, { ...setup, messages })
+}
+
+export function getInterviewFeedback(setup, messages) {
+  return postJson(`${apiBaseUrl}/api/interview/feedback`, { ...setup, messages })
+}

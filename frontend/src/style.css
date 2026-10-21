@@ -99,3 +99,50 @@ th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--border);
 th { color: var(--muted); font-size: 0.85rem; font-weight: 600; }
 .cap { text-transform: capitalize; }
 .overall-delta { font-size: 1.1rem; margin: 8px 0; }
+
+/* ---- additions: tabs and interview ---- */
+.tabs { display: flex; gap: 8px; margin-top: 16px; }
+.tabs button {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.tabs button.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+select {
+  display: block;
+  margin-top: 6px;
+  padding: 10px;
+  font: inherit;
+  font-weight: 400;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: white;
+}
+
+.chat-header { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; gap: 10px; }
+.chat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 12px;
+  max-height: 480px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.bubble { max-width: 85%; padding: 10px 14px; border-radius: 12px; }
+.bubble p { margin: 4px 0 0; white-space: pre-wrap; }
+.bubble .who { font-size: 0.75rem; font-weight: 600; color: var(--muted); }
+.bubble.assistant { background: #edf2ff; align-self: flex-start; }
+.bubble.user { background: #f1f3f5; align-self: flex-end; }
+
+.answer-box { margin-top: 12px; }
+.answer-box textarea { margin-bottom: 4px; }
+.answer-box button { margin-top: 4px; }
+
+.improvement { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; }
+.improvement h3 { color: var(--text); font-size: 1rem; margin-top: 4px; }
+.improvement p { margin: 4px 0; }
