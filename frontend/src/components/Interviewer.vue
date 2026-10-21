@@ -135,7 +135,7 @@ function restart() {
     <p v-if="error" class="error">{{ error }}</p>
 
     <button type="submit" :disabled="loading">
-      {{ loading ? 'Preparing your interviewer...' : 'Start interview' }}
+      {{ loading ? 'Preparing your interviewer...' : '🎯 Start interview' }}
     </button>
   </form>
 
@@ -149,7 +149,7 @@ function restart() {
         :disabled="loading || !hasAnswers"
         @click="finish"
       >
-        Finish now &amp; get feedback
+        ✅ Finish now &amp; get feedback
       </button>
     </div>
 
@@ -175,7 +175,7 @@ function restart() {
       />
       <p class="muted">Press Enter to send, Shift+Enter for a new line.</p>
       <p v-if="error" class="error">{{ error }}</p>
-      <button type="button" :disabled="loading || !answer.trim()" @click="send">Send answer</button>
+      <button type="button" :disabled="loading || !answer.trim()" @click="send">✉️ Send answer</button>
     </div>
   </template>
 
@@ -187,14 +187,14 @@ function restart() {
 
     <div v-else-if="error" class="card">
       <p class="error">{{ error }}</p>
-      <button type="button" @click="finish">Try again</button>
+      <button type="button" @click="finish">🔄 Try again</button>
     </div>
 
     <InterviewFeedback v-else-if="feedback" :feedback="feedback" />
 
     <div class="toolbar">
       <button type="button" class="secondary" :disabled="loading" @click="restart">
-        Start a new interview
+        🔁 Start a new interview
       </button>
     </div>
   </template>

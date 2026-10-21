@@ -140,14 +140,14 @@ function clearResults() {
     <p v-if="error" class="error">{{ error }}</p>
 
     <button type="submit" :disabled="loading">
-      {{ loading ? 'Analyzing your CV...' : lastEntry ? 'Review again' : 'Review my CV' }}
+      {{ loading ? 'Analyzing your CV...' : lastEntry ? '🔄 Review again' : '🚀 Review my CV' }}
     </button>
   </form>
 
   <template v-if="lastEntry">
     <div class="toolbar">
-      <button type="button" class="secondary" @click="downloadPdf">Download PDF</button>
-      <button type="button" class="secondary" @click="clearResults">Clear saved results</button>
+      <button type="button" class="secondary" @click="downloadPdf">📥 Download PDF</button>
+      <button type="button" class="secondary" @click="clearResults">🗑️ Clear saved results</button>
     </div>
 
     <CvFeedback
