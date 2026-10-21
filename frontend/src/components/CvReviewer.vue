@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import { reviewCv } from '../api'
 import { downloadReviewPdf } from '../pdf'
 import { clearHistory, loadHistory, saveHistory } from '../storage'
-import CvResult from './CvResult.vue'
+import CvFeedback from './CvFeedback.vue'
 
 // --- form state (ref = a reactive variable; use .value in the script) ---
 const role = ref('')
@@ -150,7 +150,7 @@ function clearResults() {
       <button type="button" class="secondary" @click="clearResults">Clear saved results</button>
     </div>
 
-    <CvResult
+    <CvFeedback
       :review="lastEntry.review"
       :previous="previousEntry ? previousEntry.review : null"
       :previous-date="previousEntry ? previousEntry.date : ''"

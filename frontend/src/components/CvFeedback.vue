@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { scoreBand } from '../scores'
+import { scoreBand } from '../scores.js'
 import CvComparison from './CvComparison.vue'
 
 // "props" = data passed in by the parent component
@@ -39,6 +39,13 @@ const overallBand = computed(() => scoreBand(props.review.overall_score))
       </ol>
     </div>
 
+    <div v-if="review.missing_skills.length" class="card">
+      <h2>Missing skills</h2>
+      <div class="chips">
+        <span v-for="skill in review.missing_skills" :key="skill" class="chip">{{ skill }}</span>
+      </div>
+    </div>
+
     <div v-for="section in review.sections" :key="section.name" class="card">
       <h2>
         {{ section.name }}
@@ -56,13 +63,6 @@ const overallBand = computed(() => scoreBand(props.review.overall_score))
       <ul>
         <li v-for="s in section.suggestions" :key="s">{{ s }}</li>
       </ul>
-    </div>
-
-    <div v-if="review.missing_skills.length" class="card">
-      <h2>Missing skills</h2>
-      <div class="chips">
-        <span v-for="skill in review.missing_skills" :key="skill" class="chip">{{ skill }}</span>
-      </div>
     </div>
   </section>
 </template>

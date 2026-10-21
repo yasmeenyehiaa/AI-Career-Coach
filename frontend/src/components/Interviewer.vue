@@ -1,6 +1,6 @@
 <script setup>
 import { computed, nextTick, ref } from 'vue'
-import { getInterviewFeedback, sendAnswer, startInterview } from '../api'
+import { getInterviewFeedback, sendAnswer, startInterview } from '../api.js'
 import InterviewFeedback from './InterviewFeedback.vue'
 
 const phase = ref('setup')
@@ -30,7 +30,7 @@ async function scrollToBottom() {
   chatEnd.value?.scrollIntoView({ behavior: 'smooth', block: 'end' })
 }
 
-async function begin() {
+async function start() {
   error.value = ''
   if (!role.value.trim()) {
     error.value = 'Please enter the role you are preparing for.'
@@ -107,7 +107,7 @@ function restart() {
 
 <template>
   <!-- ============ PHASE 1: setup ============ -->
-  <form v-if="phase === 'setup'" class="card" @submit.prevent="begin">
+  <form v-if="phase === 'setup'" class="card" @submit.prevent="start">
     <label>
       Role you are preparing for *
       <input v-model="role" type="text" placeholder="e.g. Junior Data Analyst" />

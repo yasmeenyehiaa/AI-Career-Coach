@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import CvReviewer from './components/CvReviewer.vue'
-import InterviewMode from './components/InterviewMode.vue'
+import Interviewer from './components/Interviewer.vue'
 
 const tab = ref('cv') // 'cv' or 'interview'
 </script>
@@ -21,8 +21,7 @@ const tab = ref('cv') // 'cv' or 'interview'
     </nav>
 
     <!-- v-show hides a tab instead of destroying it, so nothing is lost when you switch -->
-    <div v-show="tab === 'cv'"><CvReviewer /></div>
-    <!-- <div v-show="tab === 'interview'"><InterviewMode /></div> -->  
-    <div v-show="tab === 'interview'"><InterviewMode /></div>
+    <div v-show="tab === 'cv'"><CvReviewer /></div>  
+    <div v-show="tab === 'interview'"><Interviewer /></div>
   </main>
 </template>
