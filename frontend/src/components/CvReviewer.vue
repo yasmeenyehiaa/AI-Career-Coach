@@ -132,7 +132,7 @@ function clearResults() {
     </button>
   </form>
 
-  <template v-if="lastEntry">
+  <template v-if="lastEntry && !loading">
     <div class="toolbar">
       <button type="button" class="secondary" @click="downloadPdf">📥 Download PDF</button>
       <button type="button" class="secondary" @click="clearResults">🗑️ Clear results</button>
