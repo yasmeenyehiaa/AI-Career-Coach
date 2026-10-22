@@ -3,7 +3,7 @@ import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import cv, interview
+from app.routers import cv, interview, coach
 
 app = FastAPI(title="AI Career Coach")
 
@@ -21,6 +21,7 @@ app.add_middleware(
 
 app.include_router(cv.router)
 app.include_router(interview.router)
+app.include_router(coach.router)
 
 @app.get("/api/health")
 def health():

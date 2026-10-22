@@ -106,7 +106,7 @@ function restart() {
 </script>
 
 <template>
-  <!-- ============ PHASE 1: setup ============ -->
+  <!--  PHASE 1: setup  -->
   <form v-if="phase === 'setup'" class="card" @submit.prevent="start">
     <label>
       Role you are preparing for *
@@ -125,7 +125,6 @@ function restart() {
     <label>
       Number of questions
       <select v-model.number="numQuestions">
-        <option :value="1">1 (short)</option> // TODO: remove after testing
         <option :value="4">4 (short)</option>
         <option :value="6">6 (standard)</option>
         <option :value="8">8 (long)</option>
@@ -139,7 +138,7 @@ function restart() {
     </button>
   </form>
 
-  <!-- ============ PHASE 2: the interview ============ -->
+  <!--  PHASE 2: the interview  -->
   <template v-else-if="phase === 'chat'">
     <div class="chat-header">
       <strong>Question {{ questionNumber }} of {{ numQuestions }}</strong>
@@ -179,7 +178,7 @@ function restart() {
     </div>
   </template>
 
-  <!-- ============ PHASE 3: feedback ============ -->
+  <!-- PHASE 3: feedback  -->
   <template v-else>
     <div v-if="loading" class="card">
       <p>Analyzing your interview...</p>

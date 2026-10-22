@@ -11,7 +11,7 @@ def create_client() -> OpenAI:
     return OpenAI(api_key=get_settings().openai_api_key, timeout=60)  # 60s timeout
 
 
-def generate_review_messages(messages: list[dict], schema):
+def generate_structured(messages: list[dict], schema):
     """Send messages to the model and get back an object of type `schema`."""
     try: 
         response = create_client().chat.completions.parse(
@@ -29,8 +29,8 @@ def generate_review_messages(messages: list[dict], schema):
 
 
 
-def generate_interview_messages(messages: list[dict]):
-    """Plain text answer (used for the interviewer's questions)."""
+def generate_text(messages: list[dict]):
+    """Plain text answer."""
     try:
         response = create_client().chat.completions.create(
             model=get_settings().openai_model,

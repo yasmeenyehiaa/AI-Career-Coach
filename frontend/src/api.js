@@ -84,3 +84,24 @@ export function sendAnswer(setup, messages) {
 export function getInterviewFeedback(setup, messages) {
   return postJson(`${apiBaseUrl}/api/interview/feedback`, { ...setup, messages })
 }
+
+
+
+// ---------------------------------------------------------------- Answer coach
+
+// Asks the server for a random interview question (role and category are optional)
+export function generateQuestion(role, category) {
+  return postJson(`${apiBaseUrl}/api/coach/question`, {
+    role,
+    category,
+  })
+}
+
+// The fixed list of themes the user can choose from
+export function getCategories() {
+  return request(`${apiBaseUrl}/api/coach/categories`)
+}
+// Analyzes a draft answer with STAR
+export function analyzeAnswer({ question, answer, role }) {
+  return postJson(`${apiBaseUrl}/api/coach/analyze`, { question, answer, role })
+}
