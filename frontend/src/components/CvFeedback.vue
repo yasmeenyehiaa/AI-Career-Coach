@@ -1,13 +1,9 @@
 <script setup>
 import { computed } from 'vue'
 import { scoreBand } from '../scores.js'
-import CvComparison from './CvComparison.vue'
 
-// "props" = data passed in by the parent component
 const props = defineProps({
   review: { type: Object, required: true },
-  previous: { type: Object, default: null },   // the earlier review of the same role, if any
-  previousDate: { type: String, default: '' },
 })
 
 const overallBand = computed(() => scoreBand(props.review.overall_score))
@@ -24,13 +20,6 @@ const overallBand = computed(() => scoreBand(props.review.overall_score))
         <p>{{ review.summary }}</p>
       </div>
     </div>
-
-    <CvComparison
-      v-if="previous"
-      :current="review"
-      :previous="previous"
-      :previous-date="previousDate"
-    />
 
     <div class="card">
       <h2>Top priorities</h2>

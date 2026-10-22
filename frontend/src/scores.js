@@ -1,4 +1,4 @@
-// Helpers for showing scores. Used by the result view, the comparison and the PDF.
+// Helpers for showing scores in the result view and PDF.
 
 // Turn a 0-100 score into a band (label + color class). Matches the rubric in the prompt.
 export function scoreBand(score) {

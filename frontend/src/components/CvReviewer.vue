@@ -2,37 +2,27 @@
 import { computed, ref } from 'vue'
 import { reviewCv } from '../api'
 import { downloadReviewPdf } from '../pdf'
-import { clearHistory, loadHistory, saveHistory } from '../storage'
 import CvFeedback from './CvFeedback.vue'
 
-// --- form state (ref = a reactive variable; use .value in the script) ---
 const role = ref('')
 const jobDescription = ref('')
-const mode = ref('text') // 'text' = paste, 'file' = upload PDF
+const mode = ref('file') // 'text' = paste, 'file' = upload PDF
 const cvText = ref('')
 const file = ref(null)
 
-// --- request state ---
 const loading = ref(false)
 const error = ref('')
 
-// --- saved reviews: loaded from localStorage when the page opens ---
-// Each entry looks like: { date, role, review }
-const history = ref(loadHistory())
+const history = ref([])
 
-// The latest review is the one we show
 const lastEntry = computed(() => history.value.at(-1) || null)
 
-// The review to compare with: the most recent EARLIER review for the same role
 const previousEntry = computed(() => {
   const last = lastEntry.value
   if (!last) return null
   const earlier = history.value.slice(0, -1).reverse() // newest first
   return earlier.find((e) => e.role.toLowerCase() === last.role.toLowerCase()) || null
 })
-
-// After a refresh, bring the last role back into the form
-if (lastEntry.value) role.value = lastEntry.value.role
 
 const MAX_FILE_MB = 4
 
@@ -73,12 +63,11 @@ async function submit() {
       file: mode.value === 'file' ? file.value : null,
     })
 
-    // Add to history and save it (keep only the last 5)
+    // Keep only the last 5 reviews in this page session.
     history.value = [
       ...history.value,
-      { date: new Date().toISOString(), role: role.value.trim(), review: result },
+      { role: role.value.trim(), review: result },
     ].slice(-5)
-    saveHistory(history.value)
   } catch (e) {
     error.value = e.message
   } finally {
@@ -101,7 +90,6 @@ async function downloadPdf() {
 
 function clearResults() {
   history.value = []
-  clearHistory()
 }
 </script>
 
@@ -120,8 +108,8 @@ function clearResults() {
     <fieldset>
       <legend>Your CV *</legend>
       <div class="toggle">
-        <label><input v-model="mode" type="radio" value="text" /> Paste text</label>
         <label><input v-model="mode" type="radio" value="file" /> Upload PDF</label>
+        <label><input v-model="mode" type="radio" value="text" /> Paste text</label>
       </div>
 
       <textarea
@@ -147,13 +135,9 @@ function clearResults() {
   <template v-if="lastEntry">
     <div class="toolbar">
       <button type="button" class="secondary" @click="downloadPdf">📥 Download PDF</button>
-      <button type="button" class="secondary" @click="clearResults">🗑️ Clear saved results</button>
+      <button type="button" class="secondary" @click="clearResults">🗑️ Clear results</button>
     </div>
 
-    <CvFeedback
-      :review="lastEntry.review"
-      :previous="previousEntry ? previousEntry.review : null"
-      :previous-date="previousEntry ? previousEntry.date : ''"
-    />
+    <CvFeedback :review="lastEntry.review" />
   </template>
 </template>

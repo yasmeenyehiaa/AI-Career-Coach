@@ -1,7 +1,6 @@
 """The ONLY file that talks to OpenAI. Everything else calls this."""
 from openai import OpenAI
 from app.config import get_settings
-from app.schemas.interview import InterviewSetup
 
 
 class LLMError(Exception):

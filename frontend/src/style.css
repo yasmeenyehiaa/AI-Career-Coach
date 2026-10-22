@@ -191,7 +191,6 @@ table { width: 100%; border-collapse: collapse; margin-top: 8px; }
 th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--border); }
 th { color: var(--muted); font-size: 0.85rem; font-weight: 600; }
 .cap { text-transform: capitalize; }
-.overall-delta { font-size: 1.1rem; margin: 8px 0; }
 
 /* ---- additions: tabs and interview ---- */
 .tabs {
