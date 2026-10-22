@@ -43,7 +43,7 @@ def answer(request: AnswerRequest):
 
 @router.post("/feedback", response_model=InterviewFeedback)
 def feedback(request: FeedbackRequest):
-    """Step 3: evaluate the full conversation."""
+    """evaluate the full conversation."""
     if not any(m.role == "user" for m in request.messages):
         raise HTTPException(status_code=400, detail="Answer at least one question to get feedback.")
     try:

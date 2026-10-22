@@ -1,24 +1,81 @@
-# AI-Career-Coach
-An AI-powered Career Coach that helps users prepare for job interviews, improve their CVs, and advance their careers through a conversational interface.
+# AI Career Coach
 
-## Deploying to Vercel
+An AI-powered career coaching app to help you improve your CV and prepare for job interviews.
 
-Deploy the frontend and backend as separate Vercel projects from this repository.
+**Live app:** [AI career coach](https://yourcareercoach.vercel.app/)
 
-### Backend
+## Features
 
-1. Import the repository as a Vercel project and set **Root Directory** to `.` (the repository root).
-2. Let Vercel detect the FastAPI app in `app/main.py`; do not set a static output directory or frontend build command.
-3. Add these environment variables:
-   - `OPENAI_API_KEY`: your OpenAI API key.
-   - `FRONTEND_ORIGIN`: the frontend's production Vercel origin, such as `https://your-frontend.vercel.app` (no trailing slash).
-4. Deploy and check `https://your-backend.vercel.app/api/health`; it should return `{"status":"ok"}`.
+- **CV Reviewer:** Paste your CV or upload a PDF, choose a target role, and optionally add a job description. Get scored, actionable feedback across five areas.
+- **Track CV improvements:** Save your five most recent reviews in your browser, compare reviews for the same role, and download feedback as a PDF.
+- **Mock Interview:** Practice a role-specific interview, optionally tailored to a job description. Choose the interview length, answer questions in a chat, and receive a score and personalized feedback.
 
-### Frontend
+## Project structure
 
-1. Import the same repository as another Vercel project and set **Root Directory** to `frontend`.
-2. Select **Vite** as the framework. Use build command `npm run build` and output directory `dist`.
-3. Add `VITE_API_BASE_URL` with the backend's origin, such as `https://your-backend.vercel.app` (no trailing slash).
-4. Deploy. The CV reviewer is available at the frontend project's root URL.
+```text
+.
+├── app/                    # FastAPI backend
+│   ├── routers/            # CV review and interview API routes
+│   ├── schemas/            # Request and response models
+│   ├── services/           # AI, CV review, interview, and PDF logic
+│   ├── config.py           # Environment-based settings
+│   └── main.py             # FastAPI app entry point
+├── frontend/               # Vue 3 + Vite frontend
+│   └── src/
+│       ├── components/     # CV reviewer and mock interview UI
+│       ├── api.js          # Backend API client
+│       └── App.vue         # Main app and navigation
+├── requirements.txt        # Python dependencies
+└── README.md
+```
 
-Vite environment variables are embedded at build time, so redeploy the frontend after changing `VITE_API_BASE_URL`. If using a different frontend preview URL, add that exact origin to the backend's `FRONTEND_ORIGIN` and redeploy the backend.
+## Tech stack
+
+- Frontend: Vue 3 and Vite
+- Backend: Python, FastAPI, and the OpenAI API
+
+## Run locally
+
+You'll need Python 3.10 or newer, Node.js with npm, and an OpenAI API key.
+
+1. Install the backend dependencies from the repository root:
+
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt
+   ```
+
+   On Windows, activate the virtual environment with `.venv\Scripts\activate`.
+
+2. Create a `.env` file in the repository root:
+
+   ```env
+   OPENAI_API_KEY=your_openai_api_key
+   ```
+
+3. Start the backend from the repository root:
+
+   ```bash
+   uvicorn app.main:app --reload
+   ```
+
+   The API runs at `http://localhost:8000`. Check that it is available at `http://localhost:8000/api/health`.
+
+4. In a separate terminal, install and start the frontend:
+
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+
+   Open the local URL printed by Vite. During development, Vite proxies `/api` requests to the backend at `http://localhost:8000`.
+
+## API endpoints
+
+- `GET /api/health` — backend health check
+- `POST /api/cv/review` — review pasted CV text or a PDF
+- `POST /api/interview/start` — start a mock interview
+- `POST /api/interview/answer` — submit an answer and get the next question
+- `POST /api/interview/feedback` — get feedback on an interview
