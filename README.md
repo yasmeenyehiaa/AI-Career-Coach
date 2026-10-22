@@ -54,9 +54,10 @@ You'll need Python 3.10 or newer, Node.js with npm, and an OpenAI API key.
 
    ```env
    OPENAI_API_KEY=your_openai_api_key
+   OPENAI_MODEL=your_openai_model
    ```
 
-   The backend also supports `OPENAI_MODEL` (defaults to `gpt-6-luna`), `MAX_CV_CHARS` (defaults to `15000`), and `MAX_FILE_MB` (defaults to `4`).
+   `OPENAI_MODEL` is required. The backend also supports `MAX_CV_CHARS` (defaults to `15000`) and `MAX_FILE_MB` (defaults to `4`).
 
 3. Start the backend from the repository root:
 
@@ -83,7 +84,7 @@ Deploy the backend and frontend as **two separate Vercel projects** from this re
 ### Backend project
 
 1. Import the repository as a Vercel project with the repository root (`.`) as its **Root Directory**.
-2. Configure `OPENAI_API_KEY`. Set `FRONTEND_ORIGIN` to the deployed frontend's origin, with no trailing slash (for example, `https://your-frontend.vercel.app`).
+2. Configure `OPENAI_API_KEY` and `OPENAI_MODEL`. Set `FRONTEND_ORIGIN` to the deployed frontend's origin, with no trailing slash (for example, `https://your-frontend.vercel.app`).
 3. Deploy the backend and verify `https://your-backend.vercel.app/api/health` returns `{"status":"ok"}`.
 
 ### Frontend project
