@@ -84,7 +84,7 @@ Deploy the backend and frontend as **two separate Vercel projects** from this re
 ### Backend project
 
 1. Import the repository as a Vercel project with the repository root (`.`) as its **Root Directory**.
-2. Configure `OPENAI_API_KEY` and `OPENAI_MODEL`. Set `FRONTEND_ORIGIN` to the deployed frontend's origin, with no trailing slash (for example, `https://your-frontend.vercel.app`).
+2. Configure `OPENAI_API_KEY`. Set `FRONTEND_ORIGIN` to the deployed frontend's origin, with no trailing slash (for example, `https://your-frontend.vercel.app`).
 3. Deploy the backend and verify `https://your-backend.vercel.app/api/health` returns `{"status":"ok"}`.
 
 ### Frontend project

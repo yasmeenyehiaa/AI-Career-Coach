@@ -17,6 +17,7 @@ def generate_structured(messages: list[dict], schema):
             model=get_settings().openai_model,
             messages=messages,
             response_format=schema,
+            reasoning_effort="high",
         )
     except Exception as e:
         raise LLMError(f"OpenAI request failed: {e}")
