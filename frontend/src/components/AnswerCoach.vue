@@ -86,6 +86,9 @@ async function analyze() {
   }
 
   analyzing.value = true
+  analysis.value = null
+  previousScore.value = null
+
   try {
     const result = await analyzeAnswer({
       question: question.value.trim(),
@@ -145,7 +148,7 @@ async function applyParts() {
       Interview question *
       <textarea
         v-model="question"
-        rows="3"
+        rows="1"
         placeholder="Paste an interview question, e.g. Tell me about a time you disagreed with a teammate..."
       />
     </label>
@@ -174,7 +177,7 @@ async function applyParts() {
     <template v-if="question.trim()">
       <label class="spaced">
         Your draft answer *
-        <textarea v-model="answer" rows="9" placeholder="Write or paste your answer..." />
+        <textarea v-model="answer" rows="3" placeholder="Write or paste your answer..." />
       </label>
 
       <p v-if="error" class="error">{{ error }}</p>
@@ -186,7 +189,7 @@ async function applyParts() {
     <p v-else-if="error" class="error">{{ error }}</p>
   </form>
 
-  <section v-if="analysis" ref="resultsTop" class="result">
+  <section v-if="analysis && !analyzing" ref="resultsTop" class="result">
     <div class="card overall">
       <div class="score" :class="band.cls">{{ analysis.score }}<span>/100</span></div>
       <div>
